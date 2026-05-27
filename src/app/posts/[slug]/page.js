@@ -10,12 +10,22 @@ import { CommentList } from "../../../components/CommentList";
 import { ModalComment } from "../../../components/ModalComment";
 import { Spinner } from "../../../components/Spinner";
 import { postComment } from "../../../actions";
+import { logEvent } from "@/eventLogger";
 
 const PagePost = () => {
   // ✅ PROTEÇÃO CLIENT-SIDE: Hook customizado
   const { user, loading: authLoading } = useProtectedRoute();
   const params = useParams();
   const slug = params.slug;
+
+  logEvent({
+    step: "PAGE_VIEW",
+    operation: "POST_SLUG_VIEW",
+    userId: user?.id,
+    metadata: {
+      slug,
+    },
+  });
 
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
