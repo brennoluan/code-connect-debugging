@@ -41,7 +41,7 @@ const PagePost = () => {
 
         console.log(
           "📝 Comentários carregados via API:",
-          postData.comments?.length || 0
+          postData.comments?.length || 0,
         );
       } catch (error) {
         console.error("Erro ao carregar post:", error);
@@ -53,7 +53,7 @@ const PagePost = () => {
     if (slug && user) {
       loadPost();
     }
-  }, []);
+  }, [slug, user]);
 
   // Handler para quando um comentário é adicionado
   const handleCommentAdded = async () => {
@@ -73,7 +73,7 @@ const PagePost = () => {
       console.log(
         "📝 PagePost: dados recebidos da API:",
         postData.comments?.length || 0,
-        "comentários"
+        "comentários",
       );
 
       setComments(postData.comments || []);
@@ -81,7 +81,7 @@ const PagePost = () => {
       console.log("✅ PagePost: setComments executado");
       console.log(
         "✅ PagePost: comentários DEPOIS:",
-        postData.comments?.length || 0
+        postData.comments?.length || 0,
       );
     } catch (error) {
       console.error("❌ PagePost: erro ao recarregar comentários:", error);
@@ -110,11 +110,11 @@ const PagePost = () => {
   }
 
   if (loading) {
-    return <div>Carregando...</div>;
+    return <div className={styles.bodyMessage}>Carregando...</div>;
   }
 
   if (!post) {
-    return <div>Post não encontrado</div>;
+    return <div className={styles.bodyMessage}>Post não encontrado</div>;
   }
 
   return (
