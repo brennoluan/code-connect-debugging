@@ -1,6 +1,7 @@
 import { Prompt } from "next/font/google";
 import { LayoutProvider } from "../components/LayoutProvider";
 import "./globals.css";
+import { GrowthBookProvider } from "@/components/GrowthBookProvider";
 
 export const metadata = {
   title: "Code Connect",
@@ -17,7 +18,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-br" className={prompt.className}>
       <body>
-        <LayoutProvider>{children}</LayoutProvider>
+        <GrowthBookProvider>
+          <LayoutProvider>{children}</LayoutProvider>
+        </GrowthBookProvider>
       </body>
     </html>
   );
