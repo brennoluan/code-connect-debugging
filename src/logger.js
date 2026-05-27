@@ -16,6 +16,20 @@ const logTransports = [
   }),
 ];
 
+if (!process.env.VERCEL && typeof window === "undefined") {
+  logTransports.push(
+    new transports.File({
+      filename: "logs/error.log",
+      level: "error",
+      format: format.combine(format.timestamp(), format.json()),
+    }),
+    new transports.File({
+      filename: "logs/combined.log",
+      format: format.combine(format.timestamp(), format.json()),
+    }),
+  );
+}
+
 const logger = createLogger({
   level: "info",
   format: format.combine(
