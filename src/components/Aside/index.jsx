@@ -3,6 +3,7 @@ import styles from "./aside.module.css";
 
 import logo from "./logo.png";
 import Link from "next/link";
+import { LastUpdateTime } from "./LastUpdateTime";
 
 export const Aside = () => {
   return (
@@ -12,7 +13,7 @@ export const Aside = () => {
       </Link>
       <div className={styles.lastUpdate}>
         <small>Última atualização:</small>
-        <time>{new Date().toLocaleString("pt-BR")}</time>
+        <LastUpdateTime />
       </div>
     </aside>
   );
