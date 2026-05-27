@@ -39,9 +39,10 @@ export async function postComment(post, formData) {
       throw new Error("Não autenticado");
     }
 
-    const authorId = null;
+    const username = user.email.split("@")[0];
+    const author = await database.getOrCreateUser(username);
 
-    await database.createComment(formData.get("text"), authorId, post.id);
+    await database.createComment(formData.get("text"), author.id, post.id);
     revalidatePath("/");
     revalidatePath(`/${post.slug}`);
 
@@ -74,7 +75,7 @@ export async function postReply(parent, formData) {
       formData.get("text"),
       author.id,
       parent.postId, // ✅ Usar postId do comment
-      parent.parentId ?? parent.id // ✅ Parent ID (se for resposta à resposta)
+      parent.parentId ?? parent.id, // ✅ Parent ID (se for resposta à resposta)
     );
 
     // Buscar o post para pegar o slug para revalidate
