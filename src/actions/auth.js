@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "../utils/supabase/server";
-import { redirect } from "next/navigation";
+import { logEvent, logEventError } from "../eventLogger";
 
 export async function signUp(email, password, userData = {}) {
   try {
@@ -16,13 +16,31 @@ export async function signUp(email, password, userData = {}) {
     });
 
     if (error) {
-      console.log("Signup error");
+      logEventError({
+        step: "AUTH",
+        operation: "REGISTER_FAILED",
+        userId: null,
+        error,
+      });
+
       return { success: false, error: error.message };
     }
 
-    console.log("Signup OK");
+    logEvent({
+      step: "AUTH",
+      operation: "REGISTER_SUCCESS",
+      userId: data.user?.id,
+    });
+
     return { success: true, data };
   } catch (err) {
+    logEventError({
+      step: "AUTH",
+      operation: "REGISTER_FAILED",
+      userId: null,
+      err,
+    });
+
     return { success: false, error: "Erro interno do servidor" };
   }
 }
@@ -37,13 +55,28 @@ export async function signIn(email, password) {
     });
 
     if (error) {
-      console.log("Login error");
+      logEventError({
+        step: "AUTH",
+        operation: "LOGIN_FAILED",
+        userId: null,
+        error,
+      });
       return { success: false, error: error.message };
     }
 
-    console.log("Login OK");
+    logEvent({
+      step: "AUTH",
+      operation: "LOGIN_SUCCESS",
+      userId: data.user?.id,
+    });
     return { success: true, data };
   } catch (err) {
+    logEventError({
+      step: "AUTH",
+      operation: "LOGIN_FAILED",
+      userId: null,
+      err,
+    });
     return { success: false, error: "Erro interno do servidor" };
   }
 }
