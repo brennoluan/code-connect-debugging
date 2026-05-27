@@ -9,7 +9,7 @@ const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!supabaseUrl || !supabaseKey) {
   console.error("❌ Variáveis de ambiente do Supabase não encontradas!");
   console.error(
-    "Certifique-se de ter NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY configuradas."
+    "Certifique-se de ter NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY configuradas.",
   );
   process.exit(1);
 }
