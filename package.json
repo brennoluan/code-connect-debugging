@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:prod": "APP_ENV=production next dev --turbopack",
     "dev:debug": "NODE_OPTIONS='--inspect' next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
@@ -12,6 +13,7 @@
     "seed": "node supabase/seed.js"
   },
   "dependencies": {
+    "@growthbook/growthbook-react": "^1.6.1",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.74.0",
